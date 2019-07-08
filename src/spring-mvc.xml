@@ -12,6 +12,7 @@
         <property name="suffix" value=".jsp"/>
     </bean>
     <!--静态资源访问-->
-    <mvc:default-servlet-handler/>
+<!--    <mvc:default-servlet-handler/>-->
+    <mvc:resources mapping="/static/**" location="/static/"/>
     <mvc:annotation-driven/>
 </beans>
