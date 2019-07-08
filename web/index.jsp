@@ -11,6 +11,10 @@
     <title>$Title$</title>
   </head>
   <body>
-  $END$
+  <form name="account" action="${pageContext.request.contextPath}/hello" method="post">
+    <input name="name" type="text"/>
+    <input type="submit"/>
+
+  </form>
   </body>
 </html>
