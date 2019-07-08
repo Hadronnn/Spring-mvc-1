@@ -13,5 +13,9 @@
 <body>
 <h1>Hello World!</h1>
 <h2><%=request.getParameter("name") %></h2>
+
+<div>
+    <img src="${pageContext.request.contextPath}/static/images/1.jpg" alt="图片加载失败">
+</div>
 </body>
 </html>

@@ -14,7 +14,7 @@
   <form name="account" action="${pageContext.request.contextPath}/hello" method="post">
     <input name="name" type="text"/>
     <input type="submit"/>
-
   </form>
+  <img src="${pageContext.request.contextPath}/static/images/1.jpg" alt="图片加载失败">
   </body>
 </html>
