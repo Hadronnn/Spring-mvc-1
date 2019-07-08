@@ -32,3 +32,39 @@ SpringMVC的HelloWorld
                 <servlet-name>dispatcherServlet</servlet-name>
                 <url-pattern>/</url-pattern>
             </servlet-mapping>
+
+    4.向request作用域存储数据
+        1.使用Map
+            @RequestMapping("/hello")
+            public String hello(String name, Map<String,Object> map){
+                System.out.println("name = [" + name + "]");
+                //将请求参数name，存储在request作用域
+                map.put("name",name);
+                return "hello";
+            }
+        2.使用Model
+            @RequestMapping("/hello")
+            public String hello(String name, Model model){
+                System.out.println("name = [" + name + "]");
+                //将请求参数name，存储在request作用域
+                model.addAttribute("name",name);
+                return "hello";
+            }
+        3.使用ModelAndView
+            @RequestMapping("/hello")
+            public ModelAndView hello(String name){
+                System.out.println("name = [" + name + "]");
+                //将请求参数name，存储在request作用域
+                ModelAndView modelAndView = new ModelAndView();
+                modelAndView.setViewName("hello");
+                modelAndView.addObject("name",name);
+                return modelAndView;
+            }
+        4.使用HttpServletRequest
+            @RequestMapping("/hello")
+            public String hello(String name, HttpServletRequest request){
+                System.out.println("name = [" + name + "]");
+                //将请求参数name，存储在request作用域
+                request.setAttribute("name",name);
+                return "hello";
+            }
