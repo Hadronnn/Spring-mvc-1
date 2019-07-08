@@ -15,6 +15,11 @@
     <input name="name" type="text"/>
     <input type="submit"/>
   </form>
-  <img src="${pageContext.request.contextPath}/static/images/1.jpg" alt="图片加载失败">
+<%--  <img src="${pageContext.request.contextPath}/static/images/1.jpg" alt="图片加载失败">--%>
+  <hr>
+  <form action="${pageContext.request.contextPath}/upload" method="post" enctype="multipart/form-data">
+    <input name="file" type="file"/>
+    <input type="submit" value="提交"/>
+  </form>
   </body>
 </html>

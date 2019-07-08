@@ -15,4 +15,6 @@
 <!--    <mvc:default-servlet-handler/>-->
     <mvc:resources mapping="/static/**" location="/static/"/>
     <mvc:annotation-driven/>
+    <!--配置CommonsMultipartResolver，需要Id-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 </beans>

@@ -68,3 +68,30 @@ SpringMVC的HelloWorld
                 request.setAttribute("name",name);
                 return "hello";
             }
+    5.文件上传
+        1.添加依赖
+            commons-fileupload-1.2.1.jar
+            commons-io-1.4.jar
+        2.准备上传表单
+            <form action="${pageContext.request.contextPath}/upload" method="post">
+                <input name="file" type="file"/>
+                <input type="submit" value="提交"/>
+            </form>
+        3.配置CommonsMultipartResolver{必须要ID}
+            <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+        4.在Controller中完成文件的保存
+            @RequestMapping("/upload")
+            public String upload(MultipartFile file) throws IOException {
+                System.out.println("file = [" + file + "]");
+                System.out.println(file.getOriginalFilename());//文件名
+                System.out.println(file.getContentType());//文件类型
+                System.out.println(file.getSize());//文件大小
+                InputStream is = file.getInputStream();
+                //将文件保存到桌面1文件夹下
+                FileOutputStream os = new FileOutputStream("C:\\Users\\13646\\Desktop\\1\\" + file.getOriginalFilename());
+                int len = -1;
+                while ((len = is.read()) !=-1){
+                    os.write(len);
+                }
+                return "hello";
+            }
