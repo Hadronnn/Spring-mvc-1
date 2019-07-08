@@ -1,6 +1,7 @@
 package com.oaec.springmvc.controller;
 
 import com.oaec.springmvc.entity.Person;
+import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,9 +9,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.UUID;
 
 @Controller
 public class HelloController {
@@ -55,18 +58,30 @@ public class HelloController {
     }
 
     @RequestMapping("/upload")
-    public String upload(MultipartFile file) throws IOException {
+    public String upload(HttpServletRequest request,MultipartFile file) throws IOException {
         System.out.println("file = [" + file + "]");
         System.out.println(file.getOriginalFilename());//文件名
         System.out.println(file.getContentType());//文件类型
         System.out.println(file.getSize());//文件大小
+        String filename = file.getOriginalFilename();
         InputStream is = file.getInputStream();
-        //将文件保存到桌面1文件夹下
-        FileOutputStream os = new FileOutputStream("C:\\Users\\13646\\Desktop\\1\\" + file.getOriginalFilename());
-        int len = -1;
+        //UUID
+        UUID uuid = UUID.randomUUID();
+        //在项目根目录下的upload文件夹
+        String realPath = request.getServletContext().getRealPath("/upload");
+        //将文件保存到D盘upload文件夹下
+        File saveFile = new File(realPath + File.separator +uuid+ filename.substring(filename.lastIndexOf(".")));
+        if (!saveFile.getParentFile().exists()){
+            saveFile.getParentFile().mkdirs();
+        }
+        FileOutputStream os = new FileOutputStream(saveFile);
+        IOUtils.copy(is,os);
+        /*int len = -1;
         while ((len = is.read()) !=-1){
             os.write(len);
-        }
+        }*/
+        is.close();
+        os.close();
         return "hello";
     }
 }
